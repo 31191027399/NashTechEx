@@ -33,7 +33,8 @@ namespace DemoQA.Test
             var resultGetToken = JsonConvert.DeserializeObject<GetUserTokenDto>(responGetToken.Content);
             //Verify status
             responGetToken.StatusCode.Should().Be(HttpStatusCode.OK);
-
+            //Clear All Books in Collection to Avoid errors with existing item
+            _userService.ClearAllBookInCollection(actualUserInfo.Id, resultGetToken.Token);
             //Add Book
             var bookRequest = new AddBookRequestDto
             {

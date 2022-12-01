@@ -42,7 +42,7 @@ namespace DemoQA.Services
             .AddHeader("Accept", ContentType.Json)
             .ExecuteGetAsync<GetUserResponseDto>();
         }
-        public async Task<RestResponse<AddBookResponseDto>> PostBookToCollection( string userToken, object addBookRequest)
+        public async Task<RestResponse<AddBookResponseDto>> PostBookToCollection(string userToken, object addBookRequest)
         {
             return await _client.CreateRequests(APIConstants.bookEndPoint)
             .AddHeader("Content-Type", ContentType.Json)
@@ -72,13 +72,39 @@ namespace DemoQA.Services
              .SetRequestHeaderAuthentication(userToken)
              .ExecutePutAsync<GetUserResponseDto>();
         }
-        public async Task<RestResponse> DeleteBookAsync(object deleteRequest,string token )
-        {;
+        public async Task<RestResponse<UnauthorizedResponseDto>> PutBookUnsuccessfullyAsync(string userToken, object replaceBookRequest, string bookID)
+        {
+            //Dto for Get User Response and Replacebook response are the same
+            string endPointToReplaceBook = APIConstants.bookEndPoint + "/" + bookID;
+            return await _client.CreateRequests(endPointToReplaceBook)
+             .AddHeader("Content-Type", ContentType.Json)
+             .AddHeader("Accept", ContentType.Json)
+             .AddJsonBody(replaceBookRequest)
+             .SetRequestHeaderAuthentication(userToken)
+             .ExecutePutAsync<UnauthorizedResponseDto>();
+        }
+        public async Task<RestResponse> DeleteBookAsync(object deleteRequest, string token)
+        {
             return await _client.CreateRequests(APIConstants.deleteBookEndPoint)
              .AddHeader("Content-Type", ContentType.Json)
              .AddHeader("Accept", ContentType.Json)
              .SetRequestHeaderAuthentication(token)
+             .AddJsonBody(deleteRequest)
              .ExecuteDeleteAsync();
         }
+        public async Task<RestResponse> DeleteAllBookInCollection(string userId, string token)
+        {
+            string deleteAllBooksInSpecificUserCollectionEndPoint = APIConstants.deleteAllBookEndPoint + userId;
+            return await _client.CreateRequests(deleteAllBooksInSpecificUserCollectionEndPoint)
+            .AddHeader("Content-Type", ContentType.Json)
+             .AddHeader("Accept", ContentType.Json)
+             .SetRequestHeaderAuthentication(token)
+             .ExecuteDeleteAsync();
+        }
+        public async void ClearAllBookInCollection(string userId, string token)
+        {
+            var responseDeleteAllBook = await DeleteAllBookInCollection(userId, token);
+        }
+
     }
 }

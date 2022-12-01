@@ -33,6 +33,7 @@ namespace DemoQA.Test
         [SetUp]
         public void BeforeTest()
         {
+            
             ExtentTestManager.CreateTest(TestContext.CurrentContext.Test.Name);
         }
 

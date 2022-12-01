@@ -17,7 +17,7 @@ namespace DemoQA.Test
         [Test, Description("Delete book from collection")]
         [TestCase("user_1", "9781593277574", "")]
         [TestCase("user_1", "9781593277574", "User not authorized!")]
-        [TestCase("user_1", "", "ISBN supplied is not available in User's Collection!")]
+        [TestCase("user_1", "9781593277574", "ISBN supplied is not available in User's Collection!")]
         [TestCase("user_1", "9781593277574", "User Id not correct!")]
         public async Task DeleteBookFromCollection(string userKey, string bookId, string message)
         {
@@ -31,6 +31,8 @@ namespace DemoQA.Test
             var responGetToken = await _userService.PostUserInfoAndGetToken(user);
             var resultGetToken = JsonConvert.DeserializeObject<GetUserTokenDto>(responGetToken.Content);
 
+            //Clear All Books in Collection to Avoid errors with existing item
+            _userService.ClearAllBookInCollection(actualUserInfo.Id, resultGetToken.Token);
             //Add Book
             var bookRequest = new AddBookRequestDto
             {
@@ -62,19 +64,22 @@ namespace DemoQA.Test
                 resultDelete.Code.Should().Be("1200");
                 resultDelete.Message.Should().Be(message);
 
-                //METHOD DELETE BELOW IS USED TO CLEAN UP 
-                var responseDeleteCleanUp = await _userService.DeleteBookAsync(deleteRequest, resultGetToken.Token);
+
             }
             else if (message == "ISBN supplied is not available in User's Collection!")
             {
-                var responseDelete = await _userService.DeleteBookAsync(deleteRequest, resultGetToken.Token);
+                var deleteRequestDummy = new DeleteBookRequestDto
+                {
+                    Isbn = "23aasd",
+                    UserId = actualUserInfo.Id
+                };
+                var responseDelete = await _userService.DeleteBookAsync(deleteRequestDummy, resultGetToken.Token);
                 var resultDelete = JsonConvert.DeserializeObject<UnauthorizedResponseDto>(responseDelete.Content);
                 responseDelete.StatusCode.Should().Be(HttpStatusCode.BadRequest);
                 resultDelete.Code.Should().Be("1206");
                 resultDelete.Message.Should().Be(message);
 
-                //METHOD DELETE BELOW IS USED TO CLEAN UP 
-                var responseDeleteCleanUp = await _userService.DeleteBookAsync(deleteRequest, resultGetToken.Token);
+
             }
             else if (message == "User Id not correct!")
             {
@@ -85,12 +90,9 @@ namespace DemoQA.Test
                 };
                 var responseDelete = await _userService.DeleteBookAsync(deleteRequestDummy, resultGetToken.Token);
                 var resultDelete = JsonConvert.DeserializeObject<UnauthorizedResponseDto>(responseDelete.Content);
-                responseDelete.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+                responseDelete.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
                 resultDelete.Code.Should().Be("1207");
                 resultDelete.Message.Should().Be(message);
-
-                //METHOD DELETE BELOW IS USED TO CLEAN UP 
-                var responseDeleteCleanUp = await _userService.DeleteBookAsync(deleteRequest, resultGetToken.Token);
 
             }
         }

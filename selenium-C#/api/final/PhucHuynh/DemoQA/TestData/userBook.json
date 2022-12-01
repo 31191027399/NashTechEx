@@ -1,5 +1,5 @@
 {
-    "books_1"   : [
+    "booksInProfile"   : [
         {
             "isbn": "9781449325862",
             "title": "Git Pocket Guide",
@@ -23,7 +23,7 @@
             "website": "http://www.addyosmani.com/resources/essentialjsdesignpatterns/book/"
         }
     ],
-    "books_2"   : [
+    "switchbooks"   : [
         {
             "isbn": "9781449325862",
             "title": "Git Pocket Guide",

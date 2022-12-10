@@ -15,12 +15,13 @@ namespace DemoQASpecFlow.Pages
         private WebObject _btnOK = new WebObject(By.XPath("//button[text()='OK']"), "OK confirmation");
         private WebObject _lbltotalPages = new WebObject(By.ClassName("-totalPages"), "Total Page");
         private WebObject _btnNextPage = new WebObject(By.XPath("//button[text()='Next']"), "Next button");
+        
         //Page method
         private WebObject _getLnkBook(string bookTitle)
         {
             return new WebObject(By.XPath(string.Format(_bookPath, bookTitle)), $"{bookTitle}");
         }
-        private WebObject _btnDelete(string bookTitle)
+        private WebObject _getBtnDelete(string bookTitle)
         {
             return new WebObject(By.XPath(string.Format(_deletebuttonPath, bookTitle)), $"{bookTitle}");
         }
@@ -32,6 +33,14 @@ namespace DemoQASpecFlow.Pages
         public bool CheckIfBookIsPresentInProfile(string bookTitle)
         {
             return DriverUtils.IsElementDisplayed(_getLnkBook(bookTitle));
+        }
+        public void ClickOnDeleteButton(string bookTitle)
+        {
+            DriverUtils.ClickOnElement(_getBtnDelete(bookTitle));
+        }
+        public void ClickOnOkButton()
+        {
+            DriverUtils.ClickOnElement(_btnOK);
         }
     }
 }

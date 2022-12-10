@@ -20,24 +20,24 @@ namespace DemoQASpecFlow.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Add book to collection")]
-    [NUnit.Framework.CategoryAttribute("addBookToCollection")]
-    public partial class AddBookToCollectionFeature
+    [NUnit.Framework.DescriptionAttribute("Search book with multiple results")]
+    [NUnit.Framework.CategoryAttribute("searchBook")]
+    public partial class SearchBookWithMultipleResultsFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private static string[] featureTags = new string[] {
-                "addBookToCollection"};
+                "searchBook"};
         
-#line 1 "AddBookToCollection.Feature"
+#line 1 "SearchBook.Feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Add book to collection", "    User wants to add book to personal collection", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Search book with multiple results", "    User wants to Search book with multiple results", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -76,18 +76,16 @@ namespace DemoQASpecFlow.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Add book to personal collection")]
-        [NUnit.Framework.TestCaseAttribute("Add book to collection successfully", "PKH123", "PKH1234!@#$abc", "Git Pocket Guide", "Book added to your collection.", null)]
-        public void AddBookToPersonalCollection(string scenario, string username, string password, string bookTitle, string alertMessage, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("Search book with multiple results")]
+        [NUnit.Framework.TestCaseAttribute("Search book with multiple results", "Learning JavaScript Design Patterns, Designing Evolvable Web APIs with ASP.NET", "design", null)]
+        public void SearchBookWithMultipleResults(string scenario, string bookTitles, string searchText, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("Scenario", scenario);
-            argumentsOfScenario.Add("username", username);
-            argumentsOfScenario.Add("password", password);
-            argumentsOfScenario.Add("bookTitle", bookTitle);
-            argumentsOfScenario.Add("alertMessage", alertMessage);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add book to personal collection", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            argumentsOfScenario.Add("bookTitles", bookTitles);
+            argumentsOfScenario.Add("searchText", searchText);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Search book with multiple results", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 6
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -99,19 +97,16 @@ namespace DemoQASpecFlow.Features
             {
                 this.ScenarioStart();
 #line 7
-        testRunner.Given(string.Format("the user logs into application by \"{0}\" and \"{1}\"", username, password), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+        testRunner.Given(string.Format("there are books named \"{0}\"", bookTitles), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 8
-        testRunner.And("the user is on Book Store page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.And("the user is on the Book Store page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 9
-        testRunner.When(string.Format("the user selects a book \"{0}\"", bookTitle), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+        testRunner.When(string.Format("the user inputs book name \"{0}\"", searchText), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 10
-        testRunner.Then(string.Format("an alert \"{0}\" is shown", alertMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-#line 11
-        testRunner.And(string.Format("\"{0}\" is shown in user profile", bookTitle), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.Then(string.Format("all books match with \"{0}\"  will be displayed", searchText), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

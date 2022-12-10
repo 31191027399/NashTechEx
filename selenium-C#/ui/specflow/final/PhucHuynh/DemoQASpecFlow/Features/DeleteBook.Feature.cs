@@ -20,24 +20,24 @@ namespace DemoQASpecFlow.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Add book to collection")]
-    [NUnit.Framework.CategoryAttribute("addBookToCollection")]
-    public partial class AddBookToCollectionFeature
+    [NUnit.Framework.DescriptionAttribute("Delete book")]
+    [NUnit.Framework.CategoryAttribute("deleteBook")]
+    public partial class DeleteBookFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private static string[] featureTags = new string[] {
-                "addBookToCollection"};
+                "deleteBook"};
         
-#line 1 "AddBookToCollection.Feature"
+#line 1 "DeleteBook.Feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Add book to collection", "    User wants to add book to personal collection", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Delete book", "    User wants to delete book from personal collection", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -76,18 +76,26 @@ namespace DemoQASpecFlow.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Add book to personal collection")]
-        [NUnit.Framework.TestCaseAttribute("Add book to collection successfully", "PKH123", "PKH1234!@#$abc", "Git Pocket Guide", "Book added to your collection.", null)]
-        public void AddBookToPersonalCollection(string scenario, string username, string password, string bookTitle, string alertMessage, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("User deletes book from personal collection successfully")]
+        [NUnit.Framework.CategoryAttribute("focus")]
+        [NUnit.Framework.TestCaseAttribute("User deletes book from personal collection successfully", "PKH123", "PKH1234!@#$abc", "Git Pocket Guide", "9781449325862", "Book deleted.", null)]
+        public void UserDeletesBookFromPersonalCollectionSuccessfully(string scenario, string userName, string password, string bookTitle, string bookIsbn, string alertMessage, string[] exampleTags)
         {
-            string[] tagsOfScenario = exampleTags;
+            string[] @__tags = new string[] {
+                    "focus"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("Scenario", scenario);
-            argumentsOfScenario.Add("username", username);
+            argumentsOfScenario.Add("userName", userName);
             argumentsOfScenario.Add("password", password);
             argumentsOfScenario.Add("bookTitle", bookTitle);
+            argumentsOfScenario.Add("bookIsbn", bookIsbn);
             argumentsOfScenario.Add("alertMessage", alertMessage);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add book to personal collection", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User deletes book from personal collection successfully", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 6
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -99,19 +107,28 @@ namespace DemoQASpecFlow.Features
             {
                 this.ScenarioStart();
 #line 7
-        testRunner.Given(string.Format("the user logs into application by \"{0}\" and \"{1}\"", username, password), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+        testRunner.Given(string.Format("there is a book named \"{0}\" with \"{1}\"", bookTitle, bookIsbn), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 8
-        testRunner.And("the user is on Book Store page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.And(string.Format("the user logs into the application with \"{0}\" and \"{1}\"", userName, password), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 9
-        testRunner.When(string.Format("the user selects a book \"{0}\"", bookTitle), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+        testRunner.And("the user is on the Profile page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 10
-        testRunner.Then(string.Format("an alert \"{0}\" is shown", alertMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+        testRunner.When(string.Format("the user search book \"{0}\"", bookTitle), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 11
-        testRunner.And(string.Format("\"{0}\" is shown in user profile", bookTitle), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.And("the user clicks on Delete icon", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 12
+        testRunner.And("the user clicks on OK button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 13
+        testRunner.And(string.Format("the user clicks on OK button of alert \"{0}\"", alertMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 14
+        testRunner.Then("the book is not shown", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

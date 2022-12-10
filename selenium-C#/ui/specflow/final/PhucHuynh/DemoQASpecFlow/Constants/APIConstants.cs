@@ -9,6 +9,8 @@ namespace DemoQASpecFlow.Constants
     {
       public const string loginEndPath ="/Account/v1/Login";
       public const string deleteAllBooksEndPath ="/BookStore/v1/Books?UserId=";
+      public const string getAllBooksEnPath ="/BookStore/v1/Books";
+      public const string addBookToCollectionEndPath = "/BookStore/v1/Books";
 
     }
 }

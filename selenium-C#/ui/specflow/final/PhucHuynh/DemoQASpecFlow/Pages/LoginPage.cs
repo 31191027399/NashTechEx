@@ -18,6 +18,7 @@ namespace DemoQASpecFlow.Pages
         DriverUtils.WaitForPageLoadCompletely();
         DriverUtils.EnterText(_txtUserName,userName);
         DriverUtils.EnterText(_txtPassWord,password);
+        DriverUtils.KeyPressEnd();
         DriverUtils.ClickOnElement(_btnLogin);
       }
     }

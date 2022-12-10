@@ -1,4 +1,4 @@
-@1
+@addBookToCollection
 
 Feature: Add book to collection
     User wants to add book to personal collection

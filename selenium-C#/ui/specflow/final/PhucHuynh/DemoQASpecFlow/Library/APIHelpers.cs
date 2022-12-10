@@ -2,10 +2,8 @@ using System;
 using RestSharp;
 using Newtonsoft.Json;
 using DemoQASpecFlow.Constants;
-using Faker.Resources;
+using DemoQASpecFlow.Models;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
-
 
 namespace DemoQASpecFlow.Library
 {
@@ -33,6 +31,33 @@ namespace DemoQASpecFlow.Library
             request.AddHeader("Authorization", $"Bearer {loginResult.token}");
             var response = restClient.Execute(request);
             var result = JsonConvert.DeserializeObject<dynamic>(response.Content);
+        }
+        public static dynamic GetAllBookInBookPageByAPI()
+        {
+            var restClient = new RestClient(ConfigurationHelper.GetConfigurationByKey("ApiURL"));
+            var request = new RestRequest(ConfigurationHelper.GetConfigurationByKey("ApiURL") + APIConstants.getAllBooksEnPath, Method.Get);
+            var response = restClient.Execute(request);
+            var result = JsonConvert.DeserializeObject<AllBooksInfoObject>(response.Content);
+            return result;
+        }
+        public static dynamic PostBookToCollectionByAPI(string userName, string password, string Isbn)
+        {
+            var loginResult = LoginByApi(userName, password);
+            var restClient = new RestClient(ConfigurationHelper.GetConfigurationByKey("ApiURL"));
+            var request = new RestRequest(ConfigurationHelper.GetConfigurationByKey("ApiURL") + APIConstants.addBookToCollectionEndPath, Method.Post);
+            request.AddHeader("Authorization", $"Bearer {loginResult.token}");
+            var bookRequest = new AddBookRequestDto
+            {
+                UserId = loginResult.userId,
+                CollectionOfIsbns = new List<AddBookIsbnDto>()
+                {
+                    new AddBookIsbnDto{Isbn = Isbn }
+                }
+            };
+            request.AddJsonBody(bookRequest);
+            var response = restClient.Execute(request);
+            var result = JsonConvert.DeserializeObject<dynamic>(response.Content);
+            return result;
         }
 
     }

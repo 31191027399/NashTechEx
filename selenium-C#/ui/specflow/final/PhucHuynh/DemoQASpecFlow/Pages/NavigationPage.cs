@@ -1,5 +1,7 @@
 using OpenQA.Selenium;
 using DemoQASpecFlow.Library;
+using System.Collections.Generic;
+using DemoQASpecFlow.Models;
 
 namespace DemoQASpecFlow.Pages
 {

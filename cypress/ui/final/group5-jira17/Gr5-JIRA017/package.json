@@ -1,0 +1,27 @@
+{
+  "name": "gr5-jira017",
+  "version": "1.0.0",
+  "description": "Jira017 Group 5",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Cypress"
+  ],
+  "author": "Group 5",
+  "license": "ISC",
+  "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^15.0.0",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.1.5",
+    "@cypress/xpath": "^2.0.3",
+    "cy-verify-downloads": "^0.1.11",
+    "cypress": "^12.1.0",
+    "esbuild": "^0.16.8"
+  },
+  "dependencies": {
+    "@types/lodash": "^4.14.191",
+    "cypress-downloadfile": "^1.2.3",
+    "path": "^0.12.7"
+  }
+}
